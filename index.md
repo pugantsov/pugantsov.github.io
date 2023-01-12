@@ -8,8 +8,8 @@ I am a final year PhD researcher in the [Information, Data & Analysis (IDA)](htt
 
 # Publications
 
- - **Identifying Suitable Tasks for Inductive Transfer Through the Analysis of Feature Attributions**
- Alexander Pugantsov and Richard McCreadie
+ - **Identifying Suitable Tasks for Inductive Transfer Through the Analysis of Feature Attributions**  
+ Alexander Pugantsov and Richard McCreadie  
  ECIR 2022 [[paper]](https://arxiv.org/abs/2202.01096)
 
 # Education
