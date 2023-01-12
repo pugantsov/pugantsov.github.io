@@ -6,4 +6,6 @@ author:
 description: "PhD student in Natural Language Processing and Information Retrieval"
 
 # Build settings
-remote_theme: jekyll/minimal
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+- jekyll-remote-theme # add this line to the plugins list if you already have one
