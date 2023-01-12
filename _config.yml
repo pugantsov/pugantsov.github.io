@@ -1,0 +1,9 @@
+# Site settings
+title: Alexander Pugantsov
+author:
+  name: Alexander Pugantsov
+  email: alexander@pugantsov.com
+description: "PhD student in Natural Language Processing and Information Retrieval"
+
+# Build settings
+remote_theme: jekyll/minima
