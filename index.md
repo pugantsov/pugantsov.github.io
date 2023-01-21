@@ -8,8 +8,8 @@ I am a final year PhD researcher in the [Information, Data & Analysis (IDA)](htt
 
 # Publications
 
- - **Divergence-Based Domain Transferability for Zero-Shot Classification**
- Alexander Pugantsov and Richard McCreadie
+ - **Divergence-Based Domain Transferability for Zero-Shot Classification**  
+ Alexander Pugantsov and Richard McCreadie  
  EACL 2023 (paper available soon)
  
  - **Identifying Suitable Tasks for Inductive Transfer Through the Analysis of Feature Attributions**  
