@@ -9,11 +9,11 @@ I am a final year PhD researcher in the [Information, Data & Analysis (IDA)](htt
 # Publications
 
  - **Divergence-Based Domain Transferability for Zero-Shot Classification**  
- Alexander Pugantsov and Richard McCreadie  
+ Pugantsov, A. and McCreadie, R.  
  EACL 2023 (paper available soon)
  
  - **Identifying Suitable Tasks for Inductive Transfer Through the Analysis of Feature Attributions**  
- Alexander Pugantsov and Richard McCreadie  
+ Pugantsov, A. and McCreadie, R.  
  ECIR 2022 [[paper]](https://arxiv.org/abs/2202.01096)
 
 # Education
