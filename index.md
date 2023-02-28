@@ -4,7 +4,7 @@ layout: default
 
 # About
 
-I am a final year PhD researcher in the [Information, Data & Analysis (IDA)](https://www.gla.ac.uk/schools/computing/research/researchsections/ida-section/) section at the [University of Glasgow](https://www.gla.ac.uk/) and a member of the [Terrier Team](http://terrierteam.dcs.gla.ac.uk/). I work in natural language processing, specifically on resource-efficient transfer learning and sustainable development in machine learning.
+I am a final year PhD researcher in the [Glasgow Information Retrieval Group](https://www.gla.ac.uk/schools/computing/research/researchsections/ida-section/informationretrieval/) (and a member of the [Terrier Team](http://terrierteam.dcs.gla.ac.uk/)) within the [Information, Data & Analysis (IDA)](https://www.gla.ac.uk/schools/computing/research/researchsections/ida-section/) section at the [University of Glasgow](https://www.gla.ac.uk/). I work in natural language processing, specifically on resource-efficient transfer learning and sustainable development in machine learning.
 
 # Publications
 
