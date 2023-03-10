@@ -10,7 +10,7 @@ I am a final year PhD researcher in the [Glasgow Information Retrieval Group](ht
 
  - **Divergence-Based Domain Transferability for Zero-Shot Classification**  
  Pugantsov, A. and McCreadie, R.  
- EACL 2023 [[paper]](https://arxiv.org/abs/2302.05735)
+ EACL 2023 [[paper]](https://arxiv.org/abs/2302.05735) [[dataset]](https://github.com/pugantsov/multi-domain-yelp-business-reviews)
  
  - **Identifying Suitable Tasks for Inductive Transfer Through the Analysis of Feature Attributions**  
  Pugantsov, A. and McCreadie, R.  
