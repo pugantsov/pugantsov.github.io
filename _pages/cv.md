@@ -11,26 +11,21 @@ redirect_from:
 
 Education
 ======
-**Doctor of Philosophy (PhD), Computing Science**, University of Glasgow
-
+**Doctor of Philosophy (PhD), Computing Science**, University of Glasgow<br>
 <small>Dec 2019 - Jun 2024</small>
 
-**Master in Science (MSci), Software Engineering**, University of Glasgow
-
+**Master in Science (MSci), Software Engineering**, University of Glasgow<br>
 <small>Sep 2014 - Jun 2019</small>
 
 Work experience
 ======
-**Research Fellow**, University of Padua
-
+**Research Fellow**, University of Padua<br>
 <small>Oct 2024 - present</small>
 
-**Teaching Assistant**, University of Glasgow
-
+**Teaching Assistant**, University of Glasgow<br>
 <small>Oct 2017 - May 2024</small>
 
-**Automation Engineer**, Barclays
-
+**Automation Engineer**, Barclays<br>
 <small>Aug 2019 - Dec 2019</small>
 
 Publications
