@@ -19,7 +19,7 @@ Education
 
 Work experience
 ======
-**Research Fellow**, University of Padua<br>
+**Postdoctoral Researcher**, University of Padua<br>
 <small>Oct 2024 - present</small>
 
 **Teaching Assistant**, University of Glasgow<br>
