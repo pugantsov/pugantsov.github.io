@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-I am a postdoctoral research fellow in the Department of Information Engineering (DEI) at the University of Padua, working within the Artificial Intelligence, Machine Learning, and Control (AMCO) group, advised by [Prof. Gian Antonio Susto](https://scholar.google.com/citations?user=7bgABaoAAAAJ).
+I am a postdoctoral researcher in the Department of Information Engineering (DEI) at the University of Padua, working within the Artificial Intelligence, Machine Learning, and Control (AMCO) group, advised by [Prof. Gian Antonio Susto](https://scholar.google.com/citations?user=7bgABaoAAAAJ).
 
 My current research focuses on creating fairer and more diverse machine learning systems while safeguarding individual privacy. I work on methods to evaluate how models perform across demographic groups, measure the representativeness of datasets, and tackle fairness challenges where sensitive information (e.g., race, disability) is often unavailable. By leveraging *quantification learning*---a statistical approach to estimate proportions in data---I aim to design systems that promote equity and inclusivity in machine learning models without compromising privacy.
 
