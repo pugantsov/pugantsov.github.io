@@ -8,7 +8,7 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Alexander Pugantsov, PhD"
+title                    : "Alexander Pugantsov, Ph.D."
 title_separator          : "-"
 name                     : &name "Alexander Pugantsov"
 description              : &description "personal description"
@@ -28,7 +28,7 @@ author:
   location         : "Padua, Italy"
   employer         : "University of Padua"
   uri              : # URL
-  email            : "alexander.pugantsov@unipd.it" 
+  email            : #"alexander.pugantsov@unipd.it" 
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
@@ -44,12 +44,12 @@ author:
   bitbucket        : # Username - Update with your username on the site
   codepen          : # Username
   dribbble         : # Username
-  github           : "pugantsov"
+  github           : #"pugantsov"
   kaggle           : # Username  
   stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 
   # Social media
-  bluesky          : "pugantsov.bsky.social" # Replace this with you Bluesky username
+  bluesky          : #"pugantsov.bsky.social" # Replace this with you Bluesky username
   facebook         : # Username
   flickr           : # Username
   foursquare       : # Username
