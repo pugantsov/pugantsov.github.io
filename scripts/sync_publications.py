@@ -18,7 +18,7 @@ CATEGORY_MAP = {
     "Preprints": "preprint",
     "Journals": "journal",
     "Conferences": "conference",
-    "Workshops": "workshop",
+    "Reports": "report",
 }
 
 VENUE_ALIAS = {
@@ -35,6 +35,7 @@ VENUE_ALIAS = {
     "IJCAI": "ijcai",
     "Journal of Machine Learning Research": "jmlr",
     "Transactions on Machine Learning Research": "tmlr",
+    "TREC": "trec",
 }
 
 ALIASES_JS = """export const VENUE_ALIASES = {
@@ -85,6 +86,10 @@ ALIASES_JS = """export const VENUE_ALIASES = {
   ijcai: {
     name: \"International Joint Conference on Artificial Intelligence\",
     short: \"IJCAI\",
+  },
+  trec: {
+    name: "Text REtrieval Conference",
+    short: "TREC",
   },
 };
 """
@@ -153,7 +158,7 @@ def parse_venue(line: str, category: str, paper_url: str):
     m_year = re.search(r"(\d{4})", line)
     year = int(m_year.group(1)) if m_year else 0
 
-    if "," in line and category in {"journal", "workshop"}:
+    if "," in line and category in {"journal", "report"}:
         venue = line.split(",")[0].strip()
     else:
         venue = line[: m_year.start()].strip().rstrip(",") if m_year else line
