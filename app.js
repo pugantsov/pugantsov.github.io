@@ -1,11 +1,11 @@
 import { PUBLICATIONS, VENUE_ALIASES } from "./data/publications.js";
 import { ABOUT } from "./data/about.js";
-import { TALKS, TEACHING, SERVICE } from "./data/activities.js";
+import { SERVICE } from "./data/activities.js";
 
 const CATEGORY_ORDER = [
-  { key: "conference", title: "Conference Proceedings" },
-  { key: "journal", title: "Journals" },
-  { key: "workshop", title: "Workshops" },
+  { key: "journal", title: "Journal Articles" },
+  { key: "conference", title: "Conference Papers" },
+  { key: "report", title: "Shared-Task and Evaluation Reports" },
   { key: "preprint", title: "Preprints" },
 ];
 
@@ -63,7 +63,7 @@ function isMyName(authorName) {
     .toLowerCase()
     .replaceAll(/\s+/g, " ")
     .trim();
-  return normalized === "juho lee";
+  return normalized === "alexander pugantsov";
 }
 
 function formatAuthorForBib(authorName) {
@@ -243,10 +243,6 @@ function renderAbout() {
     .map((item) => `<li>${escapeHtml(item)}</li>`)
     .join("");
 
-  const studentsHtml = (ABOUT.prospectiveStudents || [])
-    .map((paragraph) => `<p>${renderInlineMarkdown(paragraph)}</p>`)
-    .join("");
-
   container.innerHTML = `
     <div class="about-block">
       <h3>Brief Bio</h3>
@@ -258,10 +254,6 @@ function renderAbout() {
         ${interestsHtml}
       </ul>
     </div>
-    <div class="about-block">
-      <h3>For Prospective Students</h3>
-      ${studentsHtml}
-    </div>
   `;
 }
 
@@ -271,40 +263,14 @@ function renderActivities() {
     return;
   }
 
-  const talksHtml = [...TALKS]
-    .sort((a, b) => Number(b.year) - Number(a.year))
-    .map(
-      (item) =>
-        `<li><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(item.event)}, ${escapeHtml(
-          item.location
-        )} (${escapeHtml(item.month || "")}${item.month ? " " : ""}${escapeHtml(item.year)})</li>`
-    )
-    .join("");
-
-  const teachingHtml = [...TEACHING]
-    .map(
-      (item) =>
-        `<li><strong>${escapeHtml(item.course)}</strong>${
-          item.code ? ` (${escapeHtml(item.code)})` : ""
-        }, ${escapeHtml(item.institution)}${item.term ? `, ${escapeHtml(item.term)}` : ""} (${escapeHtml(
-          item.years
-        )})</li>`
-    )
-    .join("");
-
   const serviceHtml = [...SERVICE]
-    .map((item) => `<li><strong>${escapeHtml(item.role)}:</strong> ${escapeHtml(item.details)}</li>`)
+    .map(
+      (item) =>
+        `<li><strong>${escapeHtml(item.role)}:</strong> ${escapeHtml(item.details)}</li>`
+    )
     .join("");
 
   container.innerHTML = `
-    <div class="about-block">
-      <h3>Invited Talks</h3>
-      <ul class="about-list">${talksHtml}</ul>
-    </div>
-    <div class="about-block">
-      <h3>Teaching</h3>
-      <ul class="about-list">${teachingHtml}</ul>
-    </div>
     <div class="about-block">
       <h3>Academic Service</h3>
       <ul class="about-list">${serviceHtml}</ul>
