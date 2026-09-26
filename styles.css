@@ -355,16 +355,14 @@ a:focus-visible {
 
 a {
   color: #0b57d0;
-  text-decoration: underline;
-  text-decoration-color: rgba(11, 87, 208, 0.45);
-  text-underline-offset: 3px;
+  text-decoration: none;
   font-weight: 500;
 }
 
 a:hover,
 a:focus-visible {
   color: #063b91;
-  text-decoration-color: currentColor;
+  text-decoration: none;
 }
 
 .dot {
