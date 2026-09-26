@@ -222,45 +222,32 @@ def main() -> None:
             if paper_url:
                 links.append({"label": "Paper", "url": paper_url})
 
-            # authors = parse_authors(logical[1]) if len(logical) > 1 else []
-            # venue_line = ""
+            authors = parse_authors(logical[1]) if len(logical) > 1 else []
+            venue = clean(logical[2]) if len(logical) > 2 else ""
+            year = parse_year(logical[3]) if len(logical) > 3 else 0
 
-            # for extra in logical[2:]:
-            #     value = clean(extra)
-            #     m_code = re.match(r"^\[Code\]\((.*?)\)", value)
-            #     if m_code:
-            #         links.append({"label": "Code", "url": m_code.group(1).strip()})
-            #         continue
-            #     if not venue_line and (re.search(r"\d{4}", value) or value.startswith("To appear in")):
-            #         venue_line = value
+            status = ""
+            note = ""
+            is_new = False
 
-            # venue, year, status, note = parse_venue(venue_line, category, paper_url)
+            for extra in logical[4:]:
+                value = clean(extra)
 
-          authors = parse_authors(logical[1]) if len(logical) > 1 else []
-          venue = clean(logical[2]) if len(logical) > 2 else ""
-          year = parse_year(logical[3]) if len(logical) > 3 else 0
-          
-          status = ""
-          note = ""
-          is_new = False
-          
-          for extra in logical[4:]:
-              value = clean(extra)
-          
-              if value.lower() == "[new]":
-                  is_new = True
-                  continue
-          
-              if value.lower() == "[to appear]":
-                  status = "to_appear"
-                  continue
-          
-              m_code = re.match(r"^\[Code\]\((.*?)\)", value)
-              if m_code:
-                  links.append({
-                      "label": "Code",
-                      "url": m_code.group(1).strip(),
-                  })
+                if value.lower() == "[new]":
+                    is_new = True
+                    continue
+
+                if value.lower() == "[to appear]":
+                    status = "to_appear"
+                    continue
+
+                m_code = re.match(r"^\[Code\]\((.*?)\)", value)
+                if m_code:
+                    links.append({
+                        "label": "Code",
+                        "url": m_code.group(1).strip(),
+                    })
+                    continue
 
             pub = {
                 "title": title,
@@ -270,6 +257,7 @@ def main() -> None:
                 "venue": venue,
                 "status": status,
                 "note": note,
+                "isNew": is_new,
                 "links": links,
             }
             publications.append(pub)
