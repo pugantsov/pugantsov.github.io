@@ -7,9 +7,9 @@ export const ABOUT = {
   researchInterests: [
     "Quantification learning and class-prevalence estimation",
     "Machine learning under dataset and distribution shift",
-    "Evaluation, robustness, and reliability under distribution shift",
+    "Evaluation and robustness under changing data distributions",
     "Transfer learning, domain transferability, and task similarity",
     "Population-level inference from unlabeled data",
-    "Privacy, security, and fairness in machine learning"
-  ],
+    "Privacy, security, and fairness applications of quantification"
+  ]
 };
