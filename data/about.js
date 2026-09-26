@@ -5,11 +5,11 @@ export const ABOUT = {
     "I received my PhD in Computing Science from the [University of Glasgow](https://www.gla.ac.uk/schools/computing/) under the supervision of Dr. [Richard McCreadie](https://www.gla.ac.uk/schools/computing/staff/richardmccreadie/) and Dr. [Jeff Dalton](https://people.inf.ed.ac.uk/Jeff_Dalton.html). My doctoral research investigated transfer learning, domain transferability, task similarity, and methods for predicting when knowledge learned from one task or distribution will transfer effectively to another."
   ],
   researchInterests: [
-    "Quantification learning and class-prevalence estimation",
+    "Quantification learning and population-level inference",
     "Machine learning under dataset and distribution shift",
-    "Evaluation and robustness under changing data distributions",
     "Transfer learning, domain transferability, and task similarity",
-    "Population-level inference from unlabeled data",
-    "Privacy, security, and fairness applications of quantification"
-  ]
+    "Robustness, evaluation, and reliability under distributional change",
+    "Environmental, agricultural, and remote-sensing applications of population-level machine learning",
+    "Population monitoring for public health, humanitarian response, and crisis assessment"
+]
 };
