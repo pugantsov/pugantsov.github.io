@@ -578,7 +578,7 @@ function renderPublications() {
     return `
       <section class="publication-group">
         <h3>${escapeHtml(category.title)}</h3>
-        <ol class="publication-list" reversed start="${sorted.length}">
+        <ol class="publication-list">
           ${items}
         </ol>
       </section>
