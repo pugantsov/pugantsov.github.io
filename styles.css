@@ -356,13 +356,26 @@ a:focus-visible {
 a {
   color: #0b57d0;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 a:hover,
 a:focus-visible {
   color: #063b91;
-  text-decoration: none;
+}
+
+/* Links appearing inside normal prose */
+.about-block p a,
+#contact p a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(11, 87, 208, 0.45);
+}
+
+.about-block p a:hover,
+#contact p a:hover {
+  text-decoration-color: currentColor;
 }
 
 .dot {
