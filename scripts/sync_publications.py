@@ -50,7 +50,9 @@ def parse_title(line: str):
 
 
 def parse_authors(line: str):
-    line = clean(line).replace("**", "").replace("\\*", "*").replace("\\†", "†")
+    line = (
+        clean(line).replace("**", "").replace("\\*", "*").replace("\\†", "†")
+    )
     line = re.sub(r"\s+and\s+", ", ", line)
     parts = [p.strip() for p in line.split(",") if p.strip()]
     authors = []
@@ -69,10 +71,25 @@ def parse_authors(line: str):
             authors.append(name)
     return authors
 
+
 def parse_year(line: str) -> int:
     line = clean(line)
     m = re.fullmatch(r"\d{4}", line)
     return int(m.group(0)) if m else 0
+
+
+def parse_publication_date(line: str) -> str:
+    line = clean(line)
+
+    m = re.fullmatch(r"(0[1-9]|1[0-2])-(\d{4})", line)
+    if not m:
+        return ""
+
+    month = int(m.group(1))
+    year = int(m.group(2))
+
+    return f"{year:04d}-{month:02d}"
+
 
 # def parse_venue(line: str, category: str, paper_url: str):
 #     status = ""
@@ -89,28 +106,28 @@ def parse_year(line: str) -> int:
 #             return "arXiv", year, status, note
 #         return "Unknown venue", 0, status, note
 
-    line = clean(line)
-    note_match = re.search(r"\(\*\*(.*?)\*\*\)", line)
-    if note_match:
-        note = note_match.group(1)
-        line = re.sub(r"\(\*\*.*?\*\*\)", "", line).strip()
+#     line = clean(line)
+#     note_match = re.search(r"\(\*\*(.*?)\*\*\)", line)
+#     if note_match:
+#         note = note_match.group(1)
+#         line = re.sub(r"\(\*\*.*?\*\*\)", "", line).strip()
 
-    m_to_appear = re.match(r"^To appear in\s+(.+?)\s+(\d{4})$", line)
-    if m_to_appear:
-        status = "to_appear"
-        venue = VENUE_ALIAS.get(m_to_appear.group(1), m_to_appear.group(1))
-        return venue, int(m_to_appear.group(2)), status, note
+#     m_to_appear = re.match(r"^To appear in\s+(.+?)\s+(\d{4})$", line)
+#     if m_to_appear:
+#         status = "to_appear"
+#         venue = VENUE_ALIAS.get(m_to_appear.group(1), m_to_appear.group(1))
+#         return venue, int(m_to_appear.group(2)), status, note
 
-    m_year = re.search(r"(\d{4})", line)
-    year = int(m_year.group(1)) if m_year else 0
+#     m_year = re.search(r"(\d{4})", line)
+#     year = int(m_year.group(1)) if m_year else 0
 
-    if "," in line and category in {"journal", "report"}:
-        venue = line.split(",")[0].strip()
-    else:
-        venue = line[: m_year.start()].strip().rstrip(",") if m_year else line
+#     if "," in line and category in {"journal", "report"}:
+#         venue = line.split(",")[0].strip()
+#     else:
+#         venue = line[: m_year.start()].strip().rstrip(",") if m_year else line
 
-    venue = VENUE_ALIAS.get(venue, venue)
-    return venue, year, status, note
+#     venue = VENUE_ALIAS.get(venue, venue)
+#     return venue, year, status, note
 
 
 def js_str(value: str) -> str:
@@ -135,6 +152,8 @@ def emit_publication(pub: dict[str, object]) -> str:
             out.append("      { " + ", ".join(bits) + " },")
     out.append("    ],")
     out.append(f"    year: {int(pub['year'])},")
+    if pub.get("publicationDate"):
+        out.append(f"    publicationDate: {js_str(pub['publicationDate'])},")
     out.append(f"    venue: {js_str(pub['venue'])},")
     if pub.get("status"):
         out.append(f"    status: {js_str(pub['status'])},")
@@ -143,7 +162,9 @@ def emit_publication(pub: dict[str, object]) -> str:
     if pub.get("links"):
         out.append("    links: [")
         for link in pub["links"]:
-            out.append(f"      {{ label: {js_str(link['label'])}, url: {js_str(link['url'])} }},")
+            out.append(
+                f"      {{ label: {js_str(link['label'])}, url: {js_str(link['url'])} }},"
+            )
         out.append("    ],")
     out.append("  },")
     return "\n".join(out)
@@ -165,9 +186,15 @@ def validate_publications(publications: list[dict[str, object]]) -> list[str]:
         authors = pub.get("authors") or []
         if not isinstance(authors, list) or len(authors) == 0:
             issues.append(f"{label}: missing authors")
-        corresponding = [a for a in authors if isinstance(a, dict) and a.get("corresponding")]
+        corresponding = [
+            a
+            for a in authors
+            if isinstance(a, dict) and a.get("corresponding")
+        ]
         if len(corresponding) == 1:
-            issues.append(f"{label}: only one corresponding author marked (dagger is for co-corresponding)")
+            issues.append(
+                f"{label}: only one corresponding author marked (dagger is for co-corresponding)"
+            )
 
         key = (str(pub.get("title", "")), int(pub.get("year", 0) or 0))
         if key in seen:
@@ -181,7 +208,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", default="data/publications_source.md")
     parser.add_argument("--output", default="data/publications.js")
-    parser.add_argument("--check", action="store_true", help="validate only, do not write output file")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="validate only, do not write output file",
+    )
     args = parser.parse_args()
 
     text = pathlib.Path(args.source).read_text()
@@ -212,7 +243,11 @@ def main() -> None:
             for raw in block:
                 if not raw.strip():
                     continue
-                if logical and not logical[-1].endswith("\\\\") and not raw.strip().startswith("["):
+                if (
+                    logical
+                    and not logical[-1].endswith("\\\\")
+                    and not raw.strip().startswith("[")
+                ):
                     logical[-1] += " " + raw.strip()
                 else:
                     logical.append(raw.strip())
@@ -225,12 +260,15 @@ def main() -> None:
             authors = parse_authors(logical[1]) if len(logical) > 1 else []
             venue = clean(logical[2]) if len(logical) > 2 else ""
             year = parse_year(logical[3]) if len(logical) > 3 else 0
+            publication_date = (
+                parse_publication_date(logical[4]) if len(logical) > 4 else ""
+            )
 
             status = ""
             note = ""
             is_new = False
 
-            for extra in logical[4:]:
+            for extra in logical[5:]:
                 value = clean(extra)
 
                 if value.lower() == "[new]":
@@ -243,10 +281,12 @@ def main() -> None:
 
                 m_code = re.match(r"^\[Code\]\((.*?)\)", value)
                 if m_code:
-                    links.append({
-                        "label": "Code",
-                        "url": m_code.group(1).strip(),
-                    })
+                    links.append(
+                        {
+                            "label": "Code",
+                            "url": m_code.group(1).strip(),
+                        }
+                    )
                     continue
 
             pub = {
@@ -255,9 +295,9 @@ def main() -> None:
                 "authors": authors,
                 "year": year,
                 "venue": venue,
+                "publicationDate": publication_date,
                 "status": status,
                 "note": note,
-                "isNew": is_new,
                 "links": links,
             }
             publications.append(pub)
@@ -267,10 +307,17 @@ def main() -> None:
 
     # Hand-tuned patch for preprint note line in source.
     for pub in publications:
-        if pub["title"] == "Deep amortized clustering" and pub["category"] == "preprint":
+        if (
+            pub["title"] == "Deep amortized clustering"
+            and pub["category"] == "preprint"
+        ):
             pub["venue"] = "arXiv"
-            pub["note"] = "Preliminary version accepted at NeurIPS 2019 Sets & Partitions Workshop (oral)"
-            pub["links"].append({"label": "Workshop", "url": "https://www.sets.parts"})
+            pub["note"] = (
+                "Preliminary version accepted at NeurIPS 2019 Sets & Partitions Workshop (oral)"
+            )
+            pub["links"].append(
+                {"label": "Workshop", "url": "https://www.sets.parts"}
+            )
 
     publications.sort(key=lambda p: (p["category"], -int(p["year"])))
 
@@ -290,7 +337,9 @@ def main() -> None:
         content.append("AUTOGENERATED FILE")
         content.append("- Edit data/publications_source.md")
         content.append("- Rebuild: python3 scripts/sync_publications.py")
-        content.append("- Validate: python3 scripts/sync_publications.py --check")
+        content.append(
+            "- Validate: python3 scripts/sync_publications.py --check"
+        )
         content.append("*/")
 
         pathlib.Path(args.output).write_text("\n".join(content))

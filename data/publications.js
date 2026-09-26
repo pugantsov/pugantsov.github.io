@@ -16,6 +16,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2023,
+    publicationDate: "2023-05",
     venue: "Findings of the Association for Computational Linguistics",
     links: [
       { label: "Paper", url: "https://doi.org/10.18653/v1/2023.findings-eacl.122" },
@@ -30,6 +31,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2022,
+    publicationDate: "2022-04",
     venue: "European Conference on Information Retrieval",
     links: [
       { label: "Paper", url: "https://doi.org/10.1007/978-3-030-99739-7_16" },
@@ -46,6 +48,7 @@ export const PUBLICATIONS = [
       "Alejandro Moreo Fernández",
     ],
     year: 2027,
+    publicationDate: "2026-09",
     venue: "Information Processing & Management",
     links: [
       { label: "Paper", url: "https://doi.org/10.1016/j.ipm.2026.105095" },
@@ -60,6 +63,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2021,
+    publicationDate: "2021-01",
     venue: "Proceedings of the Thirtieth Text REtrieval Conference",
     links: [
       { label: "Paper", url: "https://doi.org/10.6028/NIST.SP.500-335.incident-uog_trec_team" },
@@ -74,6 +78,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2020,
+    publicationDate: "2020-01",
     venue: "Proceedings of the Twenty-Ninth Text REtrieval Conference",
     links: [
       { label: "Paper", url: "https://doi.org/10.6028/NIST.SP.1266.incident-UoGTr" },

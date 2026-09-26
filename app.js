@@ -11,6 +11,7 @@ const CATEGORY_ORDER = [
 
 const VALID_CATEGORIES = new Set(CATEGORY_ORDER.map((item) => item.key));
 const PUBLICATION_MAP = new Map(PUBLICATIONS.map((pub) => [getPublicationId(pub), pub]));
+const NEW_PUBLICATION_MONTHS = 6;
 
 function escapeHtml(value) {
   return String(value)
@@ -481,6 +482,29 @@ function validatePublications() {
   }
 }
 
+function isNewPublication(pub) {
+  if (!pub.publicationDate) {
+    return false;
+  }
+
+  const match = String(pub.publicationDate).match(/^(\d{4})-(\d{2})$/);
+  if (!match) {
+    return false;
+  }
+
+  const publicationYear = Number(match[1]);
+  const publicationMonth = Number(match[2]);
+
+  const now = new Date();
+
+  const monthsSincePublication =
+    (now.getFullYear() - publicationYear) * 12 +
+    (now.getMonth() + 1 - publicationMonth);
+
+  return monthsSincePublication >= 0 &&
+         monthsSincePublication < NEW_PUBLICATION_MONTHS;
+}
+
 function setupThemeToggle() {
   const button = document.getElementById("theme-toggle");
   if (!button) return;
@@ -553,7 +577,7 @@ function renderPublications() {
         const authors = formatAuthors(pub.authors);
         const links = formatLinks(pub.links);
         const note = pub.note ? `<span class="badge">${escapeHtml(pub.note)}</span>` : "";
-        const newBadge = pub.isNew ? '<span class="badge-new">new</span>' : "";
+        const newBadge = isNewPublication(pub) ? '<span class="badge-new">new</span>' : "";
         const statusPrefix =
           pub.status === "to_appear" ? '<span class="pub-status">To appear in</span> ' : "";
         const pubId = getPublicationId(pub);
