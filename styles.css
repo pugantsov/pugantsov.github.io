@@ -25,14 +25,14 @@
   --badge-new-color: #2d7a4f;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --bg: #18181a;
     --fg: #e8e8e6;
     --muted: #888888;
     --line: #2e2e2e;
-    --link: #7aabf0;
-    --link-hover: #a8c8f8;
+    --link: #0057b8;
+    --link-hover: #003f88;
     --code-bg: #111113;
     --badge-new-color: #6ecf95;
   }
@@ -123,6 +123,14 @@ h1 {
   color: var(--muted);
   font-size: 0.95rem;
 }
+
+/* nav {
+  margin-top: 18px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+} */
 
 nav {
   margin-top: 18px;
@@ -334,9 +342,21 @@ h2 {
   font-weight: 500;
 }
 
+/* a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--link-hover);
+  text-decoration: underline;
+} */
+
 a {
   color: var(--link);
   text-decoration: none;
+  font-weight: 500;
 }
 
 a:hover,
