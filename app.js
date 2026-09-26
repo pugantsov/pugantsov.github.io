@@ -5,7 +5,7 @@ import { SERVICE } from "./data/activities.js";
 const CATEGORY_ORDER = [
   { key: "journal", title: "Journal Articles" },
   { key: "conference", title: "Conference Papers" },
-  { key: "report", title: "Shared-Task and Evaluation Reports" },
+  { key: "report", title: "Evaluation Reports" },
   { key: "preprint", title: "Preprints" },
 ];
 
