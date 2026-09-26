@@ -22,22 +22,26 @@ function escapeHtml(value) {
 }
 
 function renderInlineMarkdown(text) {
-  const raw = String(text || "");
-  const regex = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
-  let output = "";
-  let lastIndex = 0;
-  let match = regex.exec(raw);
+  let output = escapeHtml(String(text || ""));
 
-  while (match) {
-    output += escapeHtml(raw.slice(lastIndex, match.index));
-    const label = escapeHtml(match[1]);
-    const url = match[2];
-    output += `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${label}</a>`;
-    lastIndex = regex.lastIndex;
-    match = regex.exec(raw);
-  }
+  // Links: [text](https://example.com)
+  output = output.replace(
+    /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
+    '<a href="$2" target="_blank" rel="noreferrer">$1</a>'
+  );
 
-  output += escapeHtml(raw.slice(lastIndex));
+  // Bold: **text**
+  output = output.replace(
+    /\*\*([^*]+)\*\*/g,
+    "<strong>$1</strong>"
+  );
+
+  // Italics: *text*
+  output = output.replace(
+    /(?<!\*)\*([^*]+)\*(?!\*)/g,
+    "<em>$1</em>"
+  );
+
   return output;
 }
 
