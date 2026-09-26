@@ -21,82 +21,18 @@ CATEGORY_MAP = {
     "Reports": "report",
 }
 
-VENUE_ALIAS = {
-    "NeurIPS": "neurips",
-    "NIPS": "neurips",
-    "ICML": "icml",
-    "ICLR": "iclr",
-    "AISTATS": "aistats",
-    "AAAI": "aaai",
-    "ACL": "acl",
-    "CVPR": "cvpr",
-    "ICCV": "iccv",
-    "ECCV": "eccv",
-    "IJCAI": "ijcai",
-    "Journal of Machine Learning Research": "jmlr",
-    "Transactions on Machine Learning Research": "tmlr",
-    "Information Processing & Management": "ipm",
-    "TREC": "trec",
+VENUE_ACRONYMS = {
+    "Information Processing & Management": "IP&M",
+    "Findings of the Association for Computational Linguistics": "EACL",
+    "European Conference on Information Retrieval": "ECIR",
+    "Text REtrieval Conference": "TREC",
 }
 
 ALIASES_JS = """export const VENUE_ALIASES = {
-  neurips: {
-    name: \"Advances in Neural Information Processing Systems\",
-    short: \"NeurIPS\",
-  },
-  icml: {
-    name: \"International Conference on Machine Learning\",
-    short: \"ICML\",
-  },
-  iclr: {
-    name: \"International Conference on Learning Representations\",
-    short: \"ICLR\",
-  },
-  aistats: {
-    name: \"International Conference on Artificial Intelligence and Statistics\",
-    short: \"AISTATS\",
-  },
-  jmlr: {
-    name: \"Journal of Machine Learning Research\",
-    short: \"JMLR\",
-  },
-  tmlr: {
-    name: \"Transactions on Machine Learning Research\",
-    short: \"TMLR\",
-  },
-  aaai: {
-    name: \"AAAI Conference on Artificial Intelligence\",
-    short: \"AAAI\",
-  },
-  acl: {
-    name: \"Annual Meeting of the Association for Computational Linguistics\",
-    short: \"ACL\",
-  },
-  cvpr: {
-    name: \"IEEE/CVF Conference on Computer Vision and Pattern Recognition\",
-    short: \"CVPR\",
-  },
-  iccv: {
-    name: \"IEEE/CVF International Conference on Computer Vision\",
-    short: \"ICCV\",
-  },
-  eccv: {
-    name: \"European Conference on Computer Vision\",
-    short: \"ECCV\",
-  },
-  ijcai: {
-    name: \"International Joint Conference on Artificial Intelligence\",
-    short: \"IJCAI\",
-  },
-  ipm: {
-    name: "Information Processing & Management",
-    short: "IP&M",
-  },
-
-  trec: {
-    name: "Text REtrieval Conference",
-    short: "TREC",
-  },
+  "Information Processing & Management": "IP&M",
+  "Findings of the Association for Computational Linguistics": "EACL",
+  "European Conference on Information Retrieval": "ECIR",
+  "Text REtrieval Conference": "TREC",
 };
 """
 
@@ -133,21 +69,25 @@ def parse_authors(line: str):
             authors.append(name)
     return authors
 
+def parse_year(line: str) -> int:
+    line = clean(line)
+    m = re.fullmatch(r"\d{4}", line)
+    return int(m.group(0)) if m else 0
 
-def parse_venue(line: str, category: str, paper_url: str):
-    status = ""
-    note = ""
+# def parse_venue(line: str, category: str, paper_url: str):
+#     status = ""
+#     note = ""
 
-    if not line:
-        if category == "preprint":
-            m = re.search(r"/abs/(\d{2})(\d{2})\.", paper_url)
-            if m:
-                yy = int(m.group(1))
-                year = 2000 + yy if yy < 50 else 1900 + yy
-            else:
-                year = 0
-            return "arXiv", year, status, note
-        return "Unknown venue", 0, status, note
+#     if not line:
+#         if category == "preprint":
+#             m = re.search(r"/abs/(\d{2})(\d{2})\.", paper_url)
+#             if m:
+#                 yy = int(m.group(1))
+#                 year = 2000 + yy if yy < 50 else 1900 + yy
+#             else:
+#                 year = 0
+#             return "arXiv", year, status, note
+#         return "Unknown venue", 0, status, note
 
     line = clean(line)
     note_match = re.search(r"\(\*\*(.*?)\*\*\)", line)
@@ -282,19 +222,45 @@ def main() -> None:
             if paper_url:
                 links.append({"label": "Paper", "url": paper_url})
 
-            authors = parse_authors(logical[1]) if len(logical) > 1 else []
-            venue_line = ""
+            # authors = parse_authors(logical[1]) if len(logical) > 1 else []
+            # venue_line = ""
 
-            for extra in logical[2:]:
-                value = clean(extra)
-                m_code = re.match(r"^\[Code\]\((.*?)\)", value)
-                if m_code:
-                    links.append({"label": "Code", "url": m_code.group(1).strip()})
-                    continue
-                if not venue_line and (re.search(r"\d{4}", value) or value.startswith("To appear in")):
-                    venue_line = value
+            # for extra in logical[2:]:
+            #     value = clean(extra)
+            #     m_code = re.match(r"^\[Code\]\((.*?)\)", value)
+            #     if m_code:
+            #         links.append({"label": "Code", "url": m_code.group(1).strip()})
+            #         continue
+            #     if not venue_line and (re.search(r"\d{4}", value) or value.startswith("To appear in")):
+            #         venue_line = value
 
-            venue, year, status, note = parse_venue(venue_line, category, paper_url)
+            # venue, year, status, note = parse_venue(venue_line, category, paper_url)
+
+          authors = parse_authors(logical[1]) if len(logical) > 1 else []
+          venue = clean(logical[2]) if len(logical) > 2 else ""
+          year = parse_year(logical[3]) if len(logical) > 3 else 0
+          
+          status = ""
+          note = ""
+          is_new = False
+          
+          for extra in logical[4:]:
+              value = clean(extra)
+          
+              if value.lower() == "[new]":
+                  is_new = True
+                  continue
+          
+              if value.lower() == "[to appear]":
+                  status = "to_appear"
+                  continue
+          
+              m_code = re.match(r"^\[Code\]\((.*?)\)", value)
+              if m_code:
+                  links.append({
+                      "label": "Code",
+                      "url": m_code.group(1).strip(),
+                  })
 
             pub = {
                 "title": title,
