@@ -109,62 +109,62 @@ function ordinalSuffix(number) {
   return "th";
 }
 
-function getExpandedBooktitle(venue, year) {
-  const y = Number(year);
-  const key = String(venue || "").toLowerCase();
-  if (key === "neurips") {
-    const volume = y - 1987;
-    const short = y < 2018 ? "NIPS" : "NeurIPS";
-    return `Advances in Neural Information Processing Systems ${volume} (${short} ${y})`;
-  }
-  if (key === "icml") {
-    const nth = y - 1983;
-    return `Proceedings of The ${nth}${ordinalSuffix(nth)} International Conference on Machine Learning (ICML ${y})`;
-  }
-  if (key === "aistats") {
-    const nth = y - 1997;
-    return `Proceedings of The ${nth}${ordinalSuffix(nth)} International Conference on Artificial Intelligence and Statistics (AISTATS ${y})`;
-  }
-  if (key === "iclr") {
-    const nth = y - 2012;
-    return `Proceedings of The ${nth}${ordinalSuffix(nth)} International Conference on Learning Representations (ICLR ${y})`;
-  }
-  const alias = VENUE_ALIASES[key];
-  return alias?.name || venue || "Unknown venue";
-}
+// function getExpandedBooktitle(venue, year) {
+//   const y = Number(year);
+//   const key = String(venue || "").toLowerCase();
+//   if (key === "neurips") {
+//     const volume = y - 1987;
+//     const short = y < 2018 ? "NIPS" : "NeurIPS";
+//     return `Advances in Neural Information Processing Systems ${volume} (${short} ${y})`;
+//   }
+//   if (key === "icml") {
+//     const nth = y - 1983;
+//     return `Proceedings of The ${nth}${ordinalSuffix(nth)} International Conference on Machine Learning (ICML ${y})`;
+//   }
+//   if (key === "aistats") {
+//     const nth = y - 1997;
+//     return `Proceedings of The ${nth}${ordinalSuffix(nth)} International Conference on Artificial Intelligence and Statistics (AISTATS ${y})`;
+//   }
+//   if (key === "iclr") {
+//     const nth = y - 2012;
+//     return `Proceedings of The ${nth}${ordinalSuffix(nth)} International Conference on Learning Representations (ICLR ${y})`;
+//   }
+//   const alias = VENUE_ALIASES[key];
+//   return alias?.name || venue || "Unknown venue";
+// }
 
-function applySentenceCaseWithBraces(rawTitle, keepBraces = false) {
-  if (typeof rawTitle !== "string") {
-    return "";
-  }
+// function applySentenceCaseWithBraces(rawTitle, keepBraces = false) {
+//   if (typeof rawTitle !== "string") {
+//     return "";
+//   }
 
-  const preserved = [];
-  const marker = (index) => `§${index}§`;
+//   const preserved = [];
+//   const marker = (index) => `§${index}§`;
 
-  const withoutBraces = rawTitle.replace(/\{([^{}]*)\}/g, (_, text) => {
-    preserved.push(text);
-    return marker(preserved.length - 1);
-  });
+//   const withoutBraces = rawTitle.replace(/\{([^{}]*)\}/g, (_, text) => {
+//     preserved.push(text);
+//     return marker(preserved.length - 1);
+//   });
 
-  const lower = withoutBraces.toLowerCase();
-  const chars = [...lower];
+//   const lower = withoutBraces.toLowerCase();
+//   const chars = [...lower];
 
-  const firstPlaceholderPos = lower.indexOf("§");
-  for (let i = 0; i < chars.length; i += 1) {
-    if (firstPlaceholderPos !== -1 && i >= firstPlaceholderPos) break;
-    if (/[a-z]/.test(chars[i])) {
-      chars[i] = chars[i].toUpperCase();
-      break;
-    }
-  }
+//   const firstPlaceholderPos = lower.indexOf("§");
+//   for (let i = 0; i < chars.length; i += 1) {
+//     if (firstPlaceholderPos !== -1 && i >= firstPlaceholderPos) break;
+//     if (/[a-z]/.test(chars[i])) {
+//       chars[i] = chars[i].toUpperCase();
+//       break;
+//     }
+//   }
 
-  const cased = chars.join("");
+//   const cased = chars.join("");
 
-  return cased.replace(/§(\d+)§/g, (_, index) => {
-    const text = preserved[Number(index)] || "";
-    return keepBraces ? `{${text}}` : text;
-  });
-}
+//   return cased.replace(/§(\d+)§/g, (_, index) => {
+//     const text = preserved[Number(index)] || "";
+//     return keepBraces ? `{${text}}` : text;
+//   });
+// }
 
 function formatTitle(pub) {
   const raw = pub?.title || "Untitled";
@@ -174,13 +174,29 @@ function formatTitle(pub) {
   return escapeHtml(applySentenceCaseWithBraces(raw));
 }
 
-function formatVenue(venueKey, year) {
-  const alias = VENUE_ALIASES[venueKey?.toLowerCase?.()] || null;
-  if (!alias) {
-    return `${escapeHtml(venueKey || "Unknown venue")} ${escapeHtml(year)}`;
-  }
+// function formatVenue(venueKey, year) {
+//   const alias = VENUE_ALIASES[venueKey?.toLowerCase?.()] || null;
+//   if (!alias) {
+//     return `${escapeHtml(venueKey || "Unknown venue")} ${escapeHtml(year)}`;
+//   }
 
-  return `${escapeHtml(alias.short)} ${escapeHtml(year)}`;
+//   return `${escapeHtml(alias.short)} ${escapeHtml(year)}`;
+// }
+
+function formatVenue(venue, year) {
+  const venueText = String(venue || "");
+
+  const aliasEntry = Object.entries(VENUE_ALIASES).find(
+    ([match]) => venueText.toLowerCase().includes(match.toLowerCase())
+  );
+
+  const acronym = aliasEntry ? aliasEntry[1] : "";
+
+  const formattedVenue = acronym
+    ? `${venueText} (${acronym})`
+    : venueText;
+
+  return `${escapeHtml(formattedVenue)}, ${escapeHtml(year)}`;
 }
 
 function formatLinks(links = []) {
@@ -336,11 +352,24 @@ function formatBibTeX(pub) {
   lines.push(`  title = {${bibTitle}},`);
   lines.push(`  year = {${pub.year}},`);
 
+  // if (type === "article") {
+  //   const alias = VENUE_ALIASES[String(pub.venue || "").toLowerCase()];
+  //   lines.push(`  journal = {${alias?.name || pub.venue}},`);
+  // } else if (type === "inproceedings") {
+  //   // lines.push(`  booktitle = {${getExpandedBooktitle(pub.venue, pub.year)}},`);
+  //   lines.push(`  booktitle = {${getExpandedBooktitle(pub.venue)}},`);
+  // } else {
+  //   lines.push("  archivePrefix = {arXiv},");
+  //   const paperUrl = getPaperUrl(pub);
+  //   const arxivMatch = String(paperUrl).match(/arxiv\.org\/abs\/([^\/?]+)/);
+  //   if (arxivMatch) {
+  //     lines.push(`  eprint = {${arxivMatch[1]}},`);
+  //   }
+  // }
   if (type === "article") {
-    const alias = VENUE_ALIASES[String(pub.venue || "").toLowerCase()];
-    lines.push(`  journal = {${alias?.name || pub.venue}},`);
+    lines.push(`  journal = {${pub.venue || "Unknown venue"}},`);
   } else if (type === "inproceedings") {
-    lines.push(`  booktitle = {${getExpandedBooktitle(pub.venue, pub.year)}},`);
+    lines.push(`  booktitle = {${pub.venue || "Unknown venue"}},`);
   } else {
     lines.push("  archivePrefix = {arXiv},");
     const paperUrl = getPaperUrl(pub);
