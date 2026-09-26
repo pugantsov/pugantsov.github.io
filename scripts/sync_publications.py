@@ -35,6 +35,7 @@ VENUE_ALIAS = {
     "IJCAI": "ijcai",
     "Journal of Machine Learning Research": "jmlr",
     "Transactions on Machine Learning Research": "tmlr",
+    "Information Processing & Management": "ipm",
     "TREC": "trec",
 }
 
@@ -87,6 +88,11 @@ ALIASES_JS = """export const VENUE_ALIASES = {
     name: \"International Joint Conference on Artificial Intelligence\",
     short: \"IJCAI\",
   },
+  ipm: {
+    name: "Information Processing & Management",
+    short: "IP&M",
+  },
+
   trec: {
     name: "Text REtrieval Conference",
     short: "TREC",
