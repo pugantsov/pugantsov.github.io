@@ -265,7 +265,7 @@ function renderAbout() {
 
   container.innerHTML = `
     <div class="about-block">
-      <h3>Brief Bio</h3>
+      <!-- <h3>Brief Bio</h3> -->
       ${bioHtml}
     </div>
     <div class="about-block">
