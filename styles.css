@@ -19,13 +19,13 @@
   --fg: #111111;
   --muted: #666666;
   --line: #e8e8e8;
-  --link: #1d3d6b;
-  --link-hover: #0f2240;
+  --link: #0b57d0;
+  --link-hover: #063b91;
   --code-bg: #f4f4f2;
   --badge-new-color: #2d7a4f;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg: #18181a;
     --fg: #e8e8e6;
@@ -36,9 +36,9 @@
     --code-bg: #111113;
     --badge-new-color: #6ecf95;
   }
-}
+} */
 
-html[data-theme="light"] {
+/* html[data-theme="light"] {
   --bg: #fafaf8;
   --fg: #111111;
   --muted: #666666;
@@ -58,7 +58,7 @@ html[data-theme="dark"] {
   --link-hover: #a8c8f8;
   --code-bg: #111113;
   --badge-new-color: #6ecf95;
-}
+} */
 
 * {
   box-sizing: border-box;
