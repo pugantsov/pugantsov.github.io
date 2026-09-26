@@ -310,9 +310,8 @@ h2 {
 .author-self {
   color: var(--fg);
   font-weight: 500;
-  background: #f0f0ec;
-  padding: 0 3px;
-  border-radius: 3px;
+  border-bottom: 1px solid var(--muted);
+  padding-bottom: -1px;
 }
 
 .pub-venue {

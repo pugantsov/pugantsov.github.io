@@ -1,56 +1,8 @@
 export const VENUE_ALIASES = {
-  neurips: {
-    name: "Advances in Neural Information Processing Systems",
-    short: "NeurIPS",
-  },
-  icml: {
-    name: "International Conference on Machine Learning",
-    short: "ICML",
-  },
-  iclr: {
-    name: "International Conference on Learning Representations",
-    short: "ICLR",
-  },
-  aistats: {
-    name: "International Conference on Artificial Intelligence and Statistics",
-    short: "AISTATS",
-  },
-  jmlr: {
-    name: "Journal of Machine Learning Research",
-    short: "JMLR",
-  },
-  tmlr: {
-    name: "Transactions on Machine Learning Research",
-    short: "TMLR",
-  },
-  aaai: {
-    name: "AAAI Conference on Artificial Intelligence",
-    short: "AAAI",
-  },
-  acl: {
-    name: "Annual Meeting of the Association for Computational Linguistics",
-    short: "ACL",
-  },
-  cvpr: {
-    name: "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
-    short: "CVPR",
-  },
-  iccv: {
-    name: "IEEE/CVF International Conference on Computer Vision",
-    short: "ICCV",
-  },
-  eccv: {
-    name: "European Conference on Computer Vision",
-    short: "ECCV",
-  },
-  ijcai: {
-    name: "International Joint Conference on Artificial Intelligence",
-    short: "IJCAI",
-  },
-  trec: {
-    name: "Text REtrieval Conference",
-    short: "TREC",
-  },
+  "Information Processing & Management": "IP&M",
+  "Findings of the Association for Computational Linguistics": "EACL",
+  "European Conference on Information Retrieval": "ECIR",
+  "Text REtrieval Conference": "TREC",
 };
 
 
@@ -64,7 +16,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2023,
-    venue: "Findings of the Association for Computational Linguistics: EACL",
+    venue: "Findings of the Association for Computational Linguistics",
     links: [
       { label: "Paper", url: "https://doi.org/10.18653/v1/2023.findings-eacl.122" },
     ],
@@ -78,7 +30,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2022,
-    venue: "European Conference on Information Retrieval (ECIR)",
+    venue: "European Conference on Information Retrieval",
     links: [
       { label: "Paper", url: "https://doi.org/10.1007/978-3-030-99739-7_16" },
     ],
@@ -108,7 +60,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2021,
-    venue: "Proceedings of the Thirtieth Text REtrieval Conference (TREC",
+    venue: "Proceedings of the Thirtieth Text REtrieval Conference",
     links: [
       { label: "Paper", url: "https://doi.org/10.6028/NIST.SP.500-335.incident-uog_trec_team" },
     ],
@@ -122,7 +74,7 @@ export const PUBLICATIONS = [
       "Richard McCreadie",
     ],
     year: 2020,
-    venue: "Proceedings of the Twenty-Ninth Text REtrieval Conference (TREC",
+    venue: "Proceedings of the Twenty-Ninth Text REtrieval Conference",
     links: [
       { label: "Paper", url: "https://doi.org/10.6028/NIST.SP.1266.incident-UoGTr" },
     ],
