@@ -9,7 +9,8 @@ export const ABOUT = {
     "Machine learning under dataset and distribution shift",
     "Transfer learning, domain transferability, and task similarity",
     "Robustness, evaluation, and reliability under distributional change",
-    "Environmental, agricultural, and remote-sensing applications of population-level machine learning",
-    "Population monitoring for public health, humanitarian response, and crisis assessment"
-]
+    "Privacy, security, and fairness in aggregate machine learning systems",
+    "Distribution shift, transfer, and population-level inference in language and linguistic variation",
+    "Population-level machine learning for environmental monitoring, remote sensing, and humanitarian response"
+  ]
 };
